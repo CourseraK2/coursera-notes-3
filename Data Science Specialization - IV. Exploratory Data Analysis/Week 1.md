@@ -128,7 +128,7 @@
 	
 	mtext: add text to the margins
 	
-	axis: add axis labels
+	axis: add axis
 	
 	library(datasets)
 	with(airquality, plot(Wind, Ozone))
