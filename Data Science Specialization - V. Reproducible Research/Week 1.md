@@ -43,8 +43,17 @@
 	Steps in a data analysis:
 	
 	* Define the question: 一定要有 science 做驱动。基本上你随便拿一个 dataset 来做分析，总能发现 something interesting，但是 interesting 并不能解决什么实际问题
-	* Define the ideal data set
+	* Define the ideal data set: The data set may depend on your goal
+		* Descriptive - a whole population
+		* Exploratory - a random sample with many variables measured
+		* Inferential - the right population, randomly sampled
+		* Predictive - a training and test data set from the same population
+		* Causal - data from a randomized study
+		* Mechanistic - data about all components of the system
 	* Determine what data you can access
+		* free data on the web
+		* buy data
+		* generate yourself
 	* Obtain the data
 	* Clean the data
 	* Exploratory data analysis
@@ -52,7 +61,142 @@
 	* Interpret results
 	* Challenge results
 	* Synthesize/write up results
-	* Create reproducible code
+	* Create reproducible code	
+	
+## Structure of a Data Analysis (part 2)	
+	
+	library(kernlab)
+	data(spam) ## 4601 records
+	
+	# Perform the subsampling
+	set.seed(3435)
+	trainIndicator = rbinom(4601, size = 1, prob = 0.5)
+	table(trainIndicator)
+	
+	## trainIndicator
+	##    0    1 
+	## 2314 2287
+	
+	trainSpam = spam[trainIndicator == 1, ]
+	testSpam = spam[trainIndicator == 0, ]
+	
+	Exploratory data analysis
+	* Look at summaries of the data
+	* Check for missing data
+	* Create exploratory plots
+	* Perform exploratory analyses (e.g. clustering)
+	
+	names(trainSpam)
+	head(trainSpam)
+	table(trainSpam$type)
+	plot(trainSpam$capitalAve ~ trainSpam$type)
+	plot(log10(trainSpam$capitalAve + 1) ~ trainSpam$type)
+	plot(log10(trainSpam[, 1:4] + 1))
+	
+	hCluster = hclust(dist(t(trainSpam[, 1:57])))
+	plot(hCluster)
+	
+	hClusterUpdated = hclust(dist(t(log10(trainSpam[, 1:55] + 1))))
+	plot(hClusterUpdated)
+	
+	Statistical prediction/modeling
+	* Should be informed by the results of your exploratory analysis
+	* Exact methods depend on the question of interest
+	* Transformations/processing should be accounted for when necessary
+	* Measures of uncertainty should be reported
+	
+	trainSpam$numType = as.numeric(trainSpam$type) - 1
+	costFunction = function(x, y) sum(x != (y > 0.5))
+	cvError = rep(NA, 55)
+	library(boot)
+	for (i in 1:55) {
+		lmFormula = reformulate(names(trainSpam)[i], response = "numType")
+		glmFit = glm(lmFormula, family = "binomial", data = trainSpam)
+		cvError[i] = cv.glm(trainSpam, glmFit, costFunction, 2)$delta[2]
+	}
+
+	## Which predictor has minimum cross-validated error?
+	names(trainSpam)[which.min(cvError)]
+	## [1] "charDollar"
+	
+	Get a measure of uncertainty
+	
+	## Use the best model from the group
+	predictionModel = glm(numType ~ charDollar, family = "binomial", data = trainSpam)
+
+	## Get predictions on the test set
+	predictionTest = predict(predictionModel, testSpam)
+	predictedSpam = rep("nonspam", dim(testSpam)[1])
+
+	## Classify as `spam' for those with prob > 0.5
+	predictedSpam[predictionModel$fitted > 0.5] = "spam"
+	
+	## Classification table
+	table(predictedSpam, testSpam$type)
+	##              
+	## predictedSpam nonspam spam
+	##       nonspam    1346  458
+	##       spam         61  449
+
+	## Error rate
+	(61 + 458)/(1346 + 458 + 61 + 449)
+	## [1] 0.2243
+	
+	
+	
+	Interpret results
+	* Use the appropriate language
+		* describes
+		* correlates with/associated with
+		* leads to/causes
+		* predicts
+	* Give an explanation
+	* Interpret coefficients
+	* Interpret measures of uncertainty
+	
+	
+	Challenge results
+	* Challenge all steps:
+		* Question
+		* Data source
+		* Processing
+		* Analysis
+		* Conclusions
+	* Challenge measures of uncertainty
+	* Challenge choices of terms to include in models
+	* Think of potential alternative analyses
+
+	
+	Synthesize/write-up results
+	* Lead with the question
+	* Summarize the analyses into the story
+	* Don't include every analysis, include it
+		* If it is needed for the story
+		* If it is needed to address a challenge
+	* Order analyses according to the story, rather than * chronologically
+	* Include "pretty" figures that contribute to the story
+	
+-----
+
+## Organizing Your Analysis
+	
+	Data analysis files
+
+	* Data
+		* Raw data
+		* Processed data
+	* Figures
+		* Exploratory figures
+		* Final figures
+	* R code
+		* Raw / unused scripts
+		* Final scripts
+		* R Markdown files
+	* Text
+		* README files
+		* Text of analysis / report
+	
+	
 	
 	
 	
