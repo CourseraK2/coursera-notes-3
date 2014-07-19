@@ -15,7 +15,9 @@
 	Reproducible Research: 
 		to Make analytic data and code available so that others may	reproduce findings
 	
-	简单说就是要打破 “Replication or nothing” 的情况，尽量做到 Reproducible，具有 Reproducibility
+	简单说就是要打破 “Replication or nothing” 的情况，做到 Reproducible 的中间状态，具有 Reproducibility
+	
+	注意 replication 和 Reproducibility 是完全不同的概念，replication 是说用不同的数据和方法（但可以是类似的，不能完全相同），得到相同的结论。Reproducibility 是说可以让人完全按照你的数据和方法得到相同的结论
 	
 ## Reproducible Research: Concepts and Ideas (part 2)
 
