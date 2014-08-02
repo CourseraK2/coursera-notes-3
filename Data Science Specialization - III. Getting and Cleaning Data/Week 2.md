@@ -67,6 +67,7 @@
 	
 	The `sqldf` package allows for execution of SQL commands on R data frames.
 	sqldf("select * from df where x < 50")
+	
 -----
 
 ## Quiz 1

@@ -73,7 +73,7 @@
 	str_trim("foo   ") ## String.trim()
 	
 	
-#### mportant points about text in data sets
+#### important points about text in data sets
 
 	* Names of variables should be
 		* All lower case when possible

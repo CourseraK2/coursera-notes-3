@@ -34,6 +34,34 @@
 
 ## Components of Tidy Data
 
+	The four things you should have
+	* The raw data.
+	* A tidy data set
+	* A code book describing each variable and its values in the tidy data set.
+	* An explicit and exact recipe you used to go from 1 -> 2,3.
+
+	The tidy data
+	* Each variable you measure should be in one column
+	* Each different observation of that variable should be in a different row
+	* There should be one table for each "kind" of variable
+	* If you have multiple tables, they should include a column in the table that allows them to be linked
+
+	Some other important tips
+	* Include a row at the top of each file with variable names.
+	* Make variable names human readable AgeAtDiagnosis instead of AgeDx
+	* In general data should be saved in one file per table.
+	
+	The instruction list
+	* Ideally a computer script (in R :-), but I suppose Python is ok too...)
+	* The input for the script is the raw data
+	* The output is the processed, tidy data
+	* There are no parameters to the script
+
+	In some cases it will not be possible to script every step. In that case you should provide instructions like:
+	* Step 1 - take the raw file, run version 3.1.2 of summarize software with parameters a=1, b=2, c=3
+	* Step 2 - run the software separately for each sample
+	* Step 3 - take column three of outputfile.out for each sample and that is the corresponding row in the output data set
+	
 -----
 
 ## Downloading Files
@@ -138,9 +166,11 @@
 
 -----
 
-Q1: val = na.omit(csv$VAL)
-	length(val[val>=24])
-Q3: dat = read.xlsx("getdata-data-DATA.gov_NGAP.xlsx", sheetIndex=1, header=TRUE, colIndex=7:15, rowIndex=18:23)
+Q1: val = na.omit(csv$VAL)  
+	length(val[val>=24])  
+
+Q3: dat = read.xlsx("getdata-data-DATA.gov_NGAP.xlsx", sheetIndex=1, header=TRUE, colIndex=7:15, rowIndex=18:23)  
+
 Q4: xml <- xmlTreeParse("getdata-data-restaurants.xml", useInternalNode=TRUE)
 	rootNode <- xmlRoot(xml)
 	zipcodes <- xpathSApply(rootNode, '//zipcode', xmlValue)

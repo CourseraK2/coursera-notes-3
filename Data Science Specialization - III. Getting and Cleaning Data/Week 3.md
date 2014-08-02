@@ -301,7 +301,7 @@
 	
 ----
 
-#### Reshaping Data
+## Reshaping Data
 
 	The goal is tidy data:
 
@@ -315,7 +315,7 @@
 	
 	
 	
-#### melt
+#### Melting data frames
 
 
 	mtcars$carname <- rownames(mtcars) ## 首先我们给 mtcars 加一个 column，后续用它来演示
@@ -384,7 +384,7 @@
 
 	不管你是否指定 id、measure.vars，都是这个结果。Var1 是 rowname，如果没有 rowname 就是 row#；Var2 是 colname；value 就是具体的元素值
 	
-#### cast
+#### Casting data frames
 
 	cast 就是把 melt 的结果重新拼回来，分为 acast 和 dcast 两种，功能和用法是一样的，只是返回不同
 	* dcast 返回 data frame
@@ -445,6 +445,8 @@
 	174 184  25  59  42 200 
 	
 	
+	Another way - split
+	
 	s <- split(InsectSprays$count,InsectSprays$spray)
 	
 	$A
@@ -461,6 +463,9 @@
 
 	$E
 	 [1] 3 5 3 5 3 6 1 1 3 2 6 4
+	
+	
+	Another way - apply
 	
 	lapply(s, sum)
 	
@@ -483,6 +488,8 @@
 	  A   B   C   D   E   F 
 	174 184  25  59  42 200 
 	
+	
+	Another way - combine
 	
 	unlist(lapply(s, sum)) ## to convert a list to vector (with column name)
 	  A   B   C   D   E   F 

@@ -183,21 +183,78 @@
 ## Examples and Intuitions II
 
 	h(X) = g(10 - 20x1) 可以预测 y = NOT x1 
+	h(X) = g(10 - 20x1 - 20x2) (NOT x1) AND (NOT x2)
+	
+	然后 put it together:
+	
+	x1 -> x1 AND x2             ↘
+	 ↗↘                         x1 OR x2 => x1 XNOR x2 
+	x2 -> (NOT x1) AND (NOT x2) ↗
+	
+-----
+
+## Multiclass Classification
+
+	one-vs-all
+	
+	我们把多个 one-vs-all 组合起来，就可以做 Multiclass Classification 了
+	
+	比如一个 4-class 的问题，我们原来是 y ∈ {1, 2, 3, 4}，现在要改成 y ∈ {y1, y2, y3, y4}，其中：
+	
+	y1 = | 1 |
+		 | 0 |
+		 | 0 |
+		 | 0 |
+		 
+	y2 = | 0 |
+		 | 1 |
+		 | 0 |
+		 | 0 |
+	
+	依此类推。这时 output layer 就要有 4 个 units（相当于 4 个 flag）
+
+	但是，input layer 不一定也是 4 个 units （因为 class 不等同于 feature）
+	
+	最后得到的可能是这样一个结果:
+	a^(n) = | 0.88 |
+			| 0.01 |
+			| 0.06 |
+			| 0.01 |
+		 
+	（注意这里并不表示是概率，也没有加起来等于 1 这样规律）然后取 max(a^(n))，得到的 index 是 1，于是就归为 class 1  
+	也就是说，这里可能需要额外的一些计算（max, 取 index 等）来得出 h(X) = 1，把 a^(n) 计算出来并不意味着就大功告成了
+	
+-----
+
+## Q5
+
+	If a neural network is overfitting the data, one solution would be to increase the regularization parameter λ. (√)
+	
+	A larger value of λ will shrink the magnitude of the parameters Θ, thereby reducing the chance of overfitting the data.
+	
+	A smaller value of λ allows the model to more closely fit the training data, thereby increasing the chances of overfitting.
+	
+	这里总结一下：
+	λ 过小：overfitting
+	λ 过大：underfitting
+	已经 overfitting 了：加大 λ
+	已经 underfitting 了：减小 λ
 	
 	
+	The outputs of a neural network are not probabilities, so their sum need not be 1.
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+-----
+
+## Programming Assignment 4: Part 2 - One-vs-all classifier training
+
+	for c = 1:num_labels
+		[theta] = fmincg (@(t)(lrCostFunction(t, X, (y == c), lambda)), initial_theta, options); % size(theta) = 401x1
+		all_theta(c, 1:end) = theta'(:,1:end); % size(all_theta) = 10x401
+	endfor
+
+	注意这里 y == c 的妙用  
+
+	我们的 class 是 1, 2, ....., 10，y == n 就得到一个 0-1 矩阵，0 表示此处元素 != n，1 表示此处元素 == n，这样一个 for (n in [1:10]) 就相当于是做了 10 次 binary classfication，然后把训练的来的 theta 拼到一起就可以了。Bravo! 
 	
 	
 	
