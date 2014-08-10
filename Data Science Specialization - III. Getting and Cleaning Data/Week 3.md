@@ -525,7 +525,7 @@
 
 ## Merging Data
 
-	mergedData = merge(reviews,solutions,by.x="solution_id",by.y="id",all=TRUE)
+	mergedData = merge(reviews, solutions, by.x="solution_id", by.y="id", all=TRUE)
 	
 	这个学过数据库的应该很了解了
 	

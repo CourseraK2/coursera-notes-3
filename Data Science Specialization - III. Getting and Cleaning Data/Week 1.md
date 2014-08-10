@@ -177,7 +177,92 @@ Q4: xml <- xmlTreeParse("getdata-data-restaurants.xml", useInternalNode=TRUE)
 	length(zipcodes[zipcodes == "21231"])
 
 	
-	
+-----
+
+部分整理，未完成：
+
+## <a name="ch2"></a>2. Reading Data
+
+### Downloading Files
+
+<pre class="prettyprint linenums">
+if (!file.exists("data")) { ## check to see if the directory exists
+    dir.create("data") ## create a directory if it doesn't exist
+}
+</pre>
+
+<pre class="prettyprint linenums">
+fileUrl <- "https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
+download.file(fileUrl, destfile = "./data/cameras.csv", method = "curl")
+list.files("./data")
+dateDownloaded <- date() ## Be sure to record when you downloaded.
+</pre>
+
+### Reading Excel Files
+
+<pre class="prettyprint linenums">
+if(!file.exists("data")){dir.create("data")}
+fileUrl <- "https://data.baltimorecity.gov/api/views/dz54-2aru/rows.xlsx?accessType=DOWNLOAD"
+download.file(fileUrl,destfile="./data/cameras.xlsx",method="curl")
+dateDownloaded <- date()
+
+library(xlsx)
+cameraData <- read.xlsx("./data/cameras.xlsx",sheetIndex=1,header=TRUE)
+
+colIndex <- 2:3
+rowIndex <- 1:4
+cameraDataSubset <- read.xlsx("./data/cameras.xlsx",sheetIndex=1, colIndex=colIndex,rowIndex=rowIndex)
+</pre>
+
+* The `write.xlsx` function will write out an Excel file with similar arguments.
+* `read.xlsx2` is much faster than read.xlsx but for reading subsets of rows may be slightly unstable.
+<!-- -->
+* The `XLConnect` [package](http://cran.r-project.org/web/packages/XLConnect/index.html) has more options for writing and manipulating Excel files
+* The `XLConnect` [vignette](http://cran.r-project.org/web/packages/XLConnect/vignettes/XLConnect.pdf) is a good place to start for that package
+
+### Reading XML
+
+<pre class="prettyprint linenums">
+library(XML)
+fileUrl <- "http://www.w3schools.com/xml/simple.xml"
+doc <- xmlTreeParse(fileUrl,useInternal=TRUE)
+rootNode <- xmlRoot(doc)
+
+## 操作举例，这里就不显示结果了，自己去试吧
+xmlName(rootNode)
+names(rootNode)
+rootNode[[1]]
+rootNode[[1]][[1]]
+xmlSApply(rootNode,xmlValue)
+</pre>
+
+还可以使用 xpath：
+
+* `/node` 匹配 Top level node
+* `//node` 匹配 Node at any level
+* `node[@attr-name]` 匹配 Node with an attribute name
+* `node[@attr-name='bob']` 匹配 Node with attribute name attr-name='bob'
+
+<pre class="prettyprint linenums">
+fileUrl <- "http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens"
+doc <- htmlTreeParse(fileUrl,useInternal=TRUE)
+scores <- xpathSApply(doc,"//li[@class='score']",xmlValue)
+teams <- xpathSApply(doc,"//li[@class='team-name']",xmlValue)
+</pre>
+
+更多内容请参照：
+
+* [Extracting data from XML](http://www.stat.berkeley.edu/~statcur/Workshop2/Presentations/XML.pdf)
+* [An Introduction to the XML package for R](http://www.omegahat.org/RSXML/Tour.pdf)
+* [A Short Introduction to the XML package for R](http://www.omegahat.org/RSXML/shortIntro.pdf)
+
+### Reading JSON
+### The `data.table` Package
+### Reading from MySQL 
+### Reading from HDF5
+### Reading from The Web
+### Reading From APIs
+### Reading From Other Sources
 	
 	
 	
