@@ -166,16 +166,39 @@
 
 -----
 
-Q1: val = na.omit(csv$VAL)  
-	length(val[val>=24])  
+## Q1
 
-Q3: dat = read.xlsx("getdata-data-DATA.gov_NGAP.xlsx", sheetIndex=1, header=TRUE, colIndex=7:15, rowIndex=18:23)  
+csv <- read.csv("getdata-data-ss06hid.csv")
+val = na.omit(csv$VAL)  
+length(val[val>=24])  
 
-Q4: xml <- xmlTreeParse("getdata-data-restaurants.xml", useInternalNode=TRUE)
-	rootNode <- xmlRoot(xml)
-	zipcodes <- xpathSApply(rootNode, '//zipcode', xmlValue)
-	length(zipcodes[zipcodes == "21231"])
+A: 53
 
+## Q2
+
+A: "Tidy data has one variable per column"
+
+## Q3
+
+library(xlsx)
+dat = read.xlsx("getdata-data-DATA.gov_NGAP.xlsx", sheetIndex=1, header=TRUE, colIndex=7:15, rowIndex=18:23)
+sum(dat$Zip*dat$Ext,na.rm=T) 
+
+A: 36534720
+
+## Q4
+
+library(XML)
+xml <- xmlTreeParse("getdata-data-restaurants.xml", useInternalNode=TRUE)
+rootNode <- xmlRoot(xml)
+zipcodes <- xpathSApply(rootNode, '//zipcode', xmlValue)
+length(zipcodes[zipcodes == "21231"])
+
+A: 127
+
+## Q5
+
+A: DT[,mean(pwgtp15),by=SEX]
 	
 -----
 

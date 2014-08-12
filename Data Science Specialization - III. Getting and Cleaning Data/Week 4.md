@@ -102,7 +102,7 @@
 	Simplest pattern consists only of literals; a match occurs if the sequence of literals occurs anywhere in the text being tested
 	
 	
-	^i thing: match lines starting with "i think"
+	^i think: match lines starting with "i think"
 	
 	morning$: match lines ending with "morning" or we can say $ represents the end of a line
 	
@@ -135,15 +135,15 @@
 	(.*): 匹配括号内的任意多个字符
 	
 	
-	[0-9]: 任意一个或多个数字
+	[0-9]+: 任意一个或多个数字
 	
 	
-	[Bb]ush( +[^ ]+ +){1,5} debate: 首先看中间哪个括号，+个空格，然后+个非空格，再+个空格。然后这整个括号的结构可以重复 1-5 次。简单说就是 bush 和 debate 之间可以有 1-5 个单词，这 1-5 个单词之间可以有+个空格
+	[Bb]ush( +[^ ]+ +){1,5} debate: 首先看中间那个括号，+个空格，然后+个非空格，再+个空格。然后这整个括号的结构可以重复 1-5 次。简单说就是 bush 和 debate 之间可以有 1-5 个单词，这 1-5 个单词之间可以有+个空格
 	
 	{5}: 表示 exactly 重复 5 次
-	{1,}: 表示 at least 1 次
+	{1,}: 表示重复 at least 1 次
 
-	 +([a-zA-Z]+) +\1+: +个空格，接着+个字幕，再+个空格，然后 \1 表示与前面括号内的匹配内容一样（这种用法仅限于引用括号的匹配内容），也是+个。简单说就这就用来匹配两个相同的单词的，比如 " foo foo"
+	 +([a-zA-Z]+) +\1+: +个空格，接着+个字母，再+个空格，然后 \1 表示与前面括号内的匹配内容一样（这种用法仅限于引用括号的匹配内容），也是+个。简单说就这就用来匹配两个相同的单词的，比如 " foo foo"
 	
 	
 	
@@ -182,7 +182,8 @@
 	[1] "Sun Jan 12"
 
 	
-	x = c("1jan1960", "2jan1960", "31mar1960", "30jul1960"); z = as.Date(x, "%d%b%Y")
+	x = c("1jan1960", "2jan1960", "31mar1960", "30jul1960")
+	z = as.Date(x, "%d%b%Y")
 	z
 	[1] "1960-01-01" "1960-01-02" "1960-03-31" "1960-07-30"
 	
