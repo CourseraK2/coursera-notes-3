@@ -50,7 +50,7 @@
 	
 ## Plotting Systems in R
 	
-	1. Bsse Plotting System: 原始的点线面，一般是先 plot，然后再改 label 之类的，所以画一个图可能有多条 R 语句
+	1. Base Plotting System: 原始的点线面，一般是先 plot，然后再改 label 之类的，所以画一个图可能有多条 R 语句
 	
 	library(datasets)
 	data(cars)

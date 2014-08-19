@@ -77,6 +77,8 @@
 	callback url use "http://localhost:1410", do not follow the github help on "https://developer.github.com/guides/basics-of-authentication/", use "http://stackoverflow.com/questions/13169305/httr-github-api-callback-url-issues" instead
 	
 	library(httr)
+	library(jsonlite)
+	
 	oauth_endpoints("github")
 	myapp <- oauth_app("[You App Name]", "[Client ID]", "[Client Secret]")
 	github_token <- oauth2.0_token(oauth_endpoints("github"), myapp) ## this will send a request of "http://localhost:1410" (your callback url) to your browser
@@ -84,11 +86,10 @@
 	req <- GET("[Your Dest Url]", gtoken)
 	stop_for_status(req)
 	response <- content(req) ## require jsonlite
-	response[[1]]$created_at
-	
-	library(jsonlite)
 	json <- fromJSON(toJSON(response))
 	json[json$name=="datasharing", ]$created_at
+	
+	A: 2013-11-07T13:25:07Z
 	
 	Why localhost:1410?
 	
@@ -103,7 +104,12 @@
 	htmlcode <- readLines(con) ## 注意可能会被墙，goagent 要开 IE 代理
 	close(con)
 	
-	nchar(htmlcode[[10]])
+	nchar(htmlcode[[10]]) 
+	nchar(htmlcode[[20]]) 
+	nchar(htmlcode[[30]]) 
+	nchar(htmlcode[[100]])
+	
+	A: 45 31 7 25
 
 ## Quiz 5
 
@@ -116,3 +122,5 @@
 	* 每行开头有个空格，太阴了，用 -1 skip 掉
 	* 我连中间所有的 spaces 都用 -n 处理掉了，缺省的 sep="\t" 根本没起作用，但是你指定 sep="" 又会出问题（空格会被读到），不知道为何，不写就好了
 	* 不指定 column name 的话就自动命名成 V1 V2 这样
+	
+	A: 32426.7
