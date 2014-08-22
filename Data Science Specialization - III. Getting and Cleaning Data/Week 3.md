@@ -605,7 +605,7 @@
 
 	ed <- read.csv("getdata-data-EDSTATS_Country.csv", header=TRUE)
 
-	## 这个 csv 后面有很多 empty column (连续多个逗号在行尾)，所以与其指定 colClasses=c(..., "NULL", ...) 去 skip column，不如直接全部读进来在 extract column 来得方便
+	## 这个 csv 后面有很多 empty column (连续多个逗号在行尾)，所以与其指定 colClasses=c(..., "NULL", ...) 去 skip column，不如直接全部读进来再 extract column 来得方便
 	## 然后 read.csv 默认 header=TRUE 的
 	## 195 行之后的数据应该用不上，内容也与前面行不一致
 	gdp <- read.csv("getdata-data-GDP.csv", header=FALSE, skip=5, nrows=190)
@@ -614,8 +614,13 @@
 	
 	merged <- merge(ed, gdp, by.x="CountryCode", by.y="Country")
 	ordered <- merged[order(merged$Ranking, decreasing=TRUE), ]
-	ordered[, c("Long.Name", "Ranking")][13,]
+	
+	nrow(merged) # 189
+	ordered[13, c("Long.Name")] # St. Kitts and Nevis
 
+	A: 189, St. Kitts and Nevis
+
+	
 ## Q4
 
 	ig <- ordered[, c("Long.Name", "Ranking", "Income.Group")]

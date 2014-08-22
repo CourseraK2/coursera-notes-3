@@ -161,6 +161,85 @@
 	
 	It only addresses the most “downstream” aspect of the research process – post-publication
 	
+## Evidence-based Data Analysis (part 3)
+	
+	这里实际是把发 paper 的过程比作了 SE，分四个阶段：
+	
+	Research conducted -> Paper submitted to journal -> Paper publication -> Post-publication review
+	
+	后三个阶段对应有三个审查制度，分别是：Editor's judgement, Peer review 和 Reproduction
+	
+	
+	有趋势认为，Reproduction 可以在 Paper publication 期间就介入。但 lecturer 认为 this is unrealistic, speaking of experience, 因为这样给 Peer review 的负担太大了，而且会影响 publication 的进度
+	
+	
+	lecuturer 介绍了一种在 journal of bio statistics 实施的改良，在 Peer review 阶段，给 paper 评分：
+	
+	C: has code
+	D: has data
+	C & D: has both
+	R: reproducible (may be later)
+	
+## Evidence-based Data Analysis (part 4)
+
+	Who Reproduces Research?
+	
+	* For reproducibility to be effective as a means to check validity, someone needs to do something
+		* Re-run the analysis; check results match
+		* Check the code for bugs/errors
+		* Try alternate approaches; check sensitivity
+	* The need for someone to do something is inherited from traditional notion of replication
+	* Who is "someone" and what are their goals?
+	·
+	这里提到了 Reproducer 的态度问题：Reproducer 对 paper 的观点应该是中立的，不盲从也不抵制，因为他们的任务只是 reproduce
+
+	
+	lecturer 认为，reproduciblity 虽然 focus on "can we trust this analysis"，但并没有实际解决这个问题，所以要提出 Evidence-based Data Analysis 
+	
+	
+	Evidence-based Data Analysis
+	
+	* Most data analyses involve stringing together many different tools and methods
+	* Some methods may be standard for a given field, but others are often applied ad hoc
+	* We should apply thoroughly studied (via statistical research), mutually agreed upon methods to analyze data whenever possible
+	* There should be evidence to justify the application of a given method
+		
+## Evidence-based Data Analysis (part 5)	
+	
+	How to apply Evidence-based Data Analysis
+	
+	* Create analytic pipelines from evidence-based components – standardize it
+	* A Deterministic Statistical Machine. see http://simplystatistics.org/2012/08/27/a-deterministic-statistical-machine/
+	* Once an evidence-based analytic pipeline is established, we shouldn’t mess with it
+	* Analysis with a “transparent box”
+	* Reduce the "researcher degrees of freedom"
+	* Analogous to a pre-speciﬁed clinical trial protocol
+	
+	
+	感觉就是先建立流程模型，并且这个流程模型要经过验证。一开始可以拿少量的数据来试，模型建立后就拿全部的数据来实施。这里所谓的模型就是：step 1 用 xxx 统计方法，step 2 用 yyy 统计方法……这样的一个统计方法组合
+	
+	
+	Where to Go From Here?
+	
+	* One DSM is not enough, we need many!
+	* Different problems warrant different approaches and expertise
+	* A curated library of machines providing state-of-the art analysis pipelines
+	* A CRAN/CPAN/CTAN/… for data analysis
+	* Or a “Cochrane Collaboration” for data analysis
+	
+	
+	
+	这个模型的建立对有两方面的意义：
+	
+	* 对 reviewer 而言：Gives reviewers an important tool without dramatically increasing the burden on them
+	* 对 researcher 而言：Able to validate "upstream" aspects of scientiﬁc research
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

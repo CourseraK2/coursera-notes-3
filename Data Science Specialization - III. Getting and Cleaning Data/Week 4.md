@@ -256,6 +256,10 @@
 	gdp$MillionsUSD <- as.numeric(gdp$MillionsUSD)
 	mean(gdp$MillionsUSD)
 
+## Q3
+
+	grep("^United", gdp$Economy)
+	
 ## Q4
 
 	ed <- read.csv("getdata-data-EDSTATS_Country.csv", header=TRUE)
@@ -266,6 +270,10 @@
 	length(grep("June", fye))
 
 ## Q5 
+
+	library(quantmod)
+	amzn = getSymbols("AMZN",auto.assign=FALSE)
+	sampleTimes = index(amzn) 
 
 	length(sampleTimes[format(sampleTimes, "%Y")=="2012"])
 
