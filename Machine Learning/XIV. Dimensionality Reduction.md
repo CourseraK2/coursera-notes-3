@@ -32,8 +32,8 @@
 	
 	suppose we are reducing data from n-dimensions to k-dimensions
 	
-	Compute **convariance matrix** (协方差矩阵
-): 
+	Compute **convariance matrix** (协方差矩阵):
+	
 	Σ = (1/m)*sum(1:n) { x^(i)*(x^(i))^T }
 	
 	vecterized Σ = (1/m)*X^T*X
