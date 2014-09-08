@@ -1,4 +1,4 @@
-## 01_01_a Introduction, motivating examples
+## 01 Introduction to inference and motivating examples
 
 	Statistical inference is the process of drawing formal conclusions from data.
 	
@@ -18,21 +18,18 @@
 	Statistical inference requires navigating the set of assumptions and tools and subsequently thinking about how to draw conclusions from data.
 	
 	Example goals of inference
-	1. Estimate and quantify the uncertainty of an estimate of a population quantity (the proportion of
-	people who will vote for a candidate).
+	1. Estimate and quantify the uncertainty of an estimate of a population quantity (the proportion of people who will vote for a candidate).
 	2. Determine whether a population quantity is a benchmark value ("is the treatment effective?").
-	3. Infer a mechanistic relationship when quantities are measured with noise ("What is the slope
-	for Hooke's law?")
-	4. Determine the impact of a policy? ("If we reduce polution levels, will asthma rates decline?")
-	
-	asthma: [ˈæsmə] 哮喘
+	3. Infer a mechanistic relationship when quantities are measured with noise ("What is the slope for Hooke's law?")
+	4. Determine the impact of a policy? ("If we reduce polution levels, will asthma ([ˈæsmə] 哮喘) rates decline?")
+	5. Talk about the probablity that something occurs
 	
 	
 	
 	Example tools of the trade
 	1. Randomization: concerned with balancing unobserved variables that may confound inferences of interest
 	2. Random sampling: concerned with obtaining data that is representative of the population of interest
-	3. Sampling models: concerned with creating a model for the sampling process, the most common is so called "iid".
+	3. Sampling models: concerned with creating a model for the sampling process, the most common is so called "iid", independent identically distributed.
 	4. Hypothesis testing: concerned with decision making in the presence of uncertainty
 	5. Confidence intervals: concerned with quantifying uncertainty in estimation
 	6. Probability models: a formal connection between the data and a population of interest. Often probability models are assumed or are approximated.
@@ -59,17 +56,37 @@
 	
 	In this class, we will primarily focus on basic sampling models, basic probability models and frequency style analyses to create standard inferences.
 	
+## Probability
+
+## Conditional probability
+
+	IID random variables
 	
-	感觉这整个课程都在讲概率！English version!
+	Random variables that are Independent and Identical Distributed
+	* Independent: statistically unrelated from one and another
+	* Identically Distributed: all having been drawn from the same population distribution
 	
+## Expectation
+
+	When the expected value of an estimator is what its trying to estimate, we say that the estimator is **unbiased**
 	
-	
-	
-	
-	
-	
-	
-	
+-----
+
+## Q1
+
+12% + x -6% = 17% => x = 11%
+
+## Q6
+
+P(A+B) = 0.9
+P(A) = 0.8
+P(B) = 0.8
+P(A*B) = 0.7
+
+P(!A*!B) = 1 - P(A+B) = 0.1 = P(!A) - P(!A*B) = 0.2 - P(!A*B)
+=> P(!A*B) = 0.1 
+
+P(B|!A) = P(B*!A)/P(B) = 0.5 
 	
 	
 	
