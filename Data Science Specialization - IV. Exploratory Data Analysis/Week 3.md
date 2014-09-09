@@ -169,7 +169,6 @@
 	
 	这里上来是自己构造了一个例子：一个看不出有什么 pattern 的数据集，我们人为加了一列，随机赋成 0-1，结果这 0-1 pattern 成了最明显的 pattern。反过来说，这一列 0-1 最好地描述了整个数据集，其余的列对 pattern 可以说是毫无贡献。由此引出我们的问题：
 	
-	
 	You have multivariate variables X1,...,Xn，其中 X1=(X11,…,X1m)...
 	
 	Q1: Find a new set of X1,...,Xn that are uncorrelated and explain as much variance as possible.
@@ -187,7 +186,7 @@
 
 	X=UDV^T
 	
-	where the columns of U (left singular vectors) are orthogonal , the columns of V (right singular vectors)  are orthogonal and D (singular values) is a diagonal matrix .
+	where the columns of U are orthogonal (left singular vectors) (正交矩阵, i.e. U*U' = I), the columns of V are orthogonal (right singular vectors) (实际上 V 就是 U'，所以 UV = I) and D is a diagonal matrix (singular values).
 
 	PCA:
 
