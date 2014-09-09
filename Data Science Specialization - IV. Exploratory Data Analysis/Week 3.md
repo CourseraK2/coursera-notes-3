@@ -190,7 +190,7 @@
 
 	PCA:
 
-	The principal components are equal to the right singular values V if you first scale (subtract the mean, divide by the standard deviation) the variables.
+	The principal components are equal to the singular values if you first scale (subtract the mean, divide by the standard deviation) the variables.
 		
 ## Dimension Reduction (part 2)
 
