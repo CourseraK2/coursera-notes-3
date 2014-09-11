@@ -56,9 +56,9 @@
 	
 	In this class, we will primarily focus on basic sampling models, basic probability models and frequency style analyses to create standard inferences.
 	
-## Probability
+## 02 Probability
 
-## Conditional probability
+## 03 Conditional probability
 
 	IID random variables
 	
@@ -66,7 +66,7 @@
 	* Independent: statistically unrelated from one and another
 	* Identically Distributed: all having been drawn from the same population distribution
 	
-## Expectation
+## 04 Expectation
 
 	When the expected value of an estimator is what its trying to estimate, we say that the estimator is **unbiased**
 	
