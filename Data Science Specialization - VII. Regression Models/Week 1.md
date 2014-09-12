@@ -6,10 +6,12 @@
 	female_parent_height <- male_parent_height * 1.08
 	
 	n = 928
-	mu: mean(X)
+	mu: some middle value of Y
 	yi: height of child i
 	
 	求 min：sum(1:n){(yi-mu)^2} 
+	
+	这里还没有开始预测，只是利用 least squares 来求 mu
 	
 ## 01_01_c Least squares continued
 
@@ -25,6 +27,10 @@
 	
 	## 会出一个调节 mu 的 bar，可以在图上看到不同的 mu 值对应的 mse 值
 	
+	
+	
+	The least squares estimate is the empirical mean
+	
 	ym <- mean(Y)
 	sum(1:n){(yi-mu)^2} = 
 		sum(1:n){(yi-ym)^2} + sum(1:n){(ym-mu)^2} 
@@ -32,18 +38,21 @@
 	yi-mu = (yi-ym) + (ym-mu)
 	两边分别平方，右边的 2ab 项最终为 0
 	
+	所以 sum(1:n){(yi-mu)^2} >= sum(1:n){(yi-ym)^2}
+	
+	mu = ym 使其最小
+	
 ## 01_01_d Regression through the origin
 
 	origin: (mathematics) The point at which the axes of a coordinate system intersect, 原点
 	
 	这里说的是 through-origin linear regression，所以就是简单的 y = beta*x
 	
+	求 beta 使得 min sum(i=1:n) {Y_i - X_i*beta}
+	
 	orthogonal：[ɔ:'θɒgənl] 垂直的，正交的
 	
-	beta0 = 0
-	beta1 = sum(1:n) {Xi*Yi} / sum(1:n) {xi^2}
 	
-	beta1 <- sum(x*y)/sum(x^2)
 	
 	myPlot <-function(beta){
 		y<-galton$child -mean(galton$child)
@@ -67,27 +76,35 @@
 
 	
 	
+	library(UsingR);data(galton)
 	lm(I(child - mean(child))~ I(parent - mean(parent)) - 1, data = galton) ## 简单形式就是 lm(y ~ x - 1)
+	
+	## I() is used to inhibit the interpretation of operators such as "+", "-", "*" and "^" as formula operators, so they are used as arithmetical operators
 
-	Call:
-		lm(formula = I(child - mean(child)) ~ I(parent - mean(parent)) -  1, data = galton)
-	Coefficients:
-		I(parent - mean(parent)) 
-		0.646 
+	output:
+	##	Call:
+	##		lm(formula = I(child - mean(child)) ~ I(parent - mean(parent)) -  1, data = galton)
+	##	Coefficients:
+	##		I(parent - mean(parent)) 
+	##						   0.646 
 
+	
+	Coefficient of xx 一般翻译为 "xx系数" 或者 "xx率"，其实就是 aX 中的 a
+
+	
 -----
 
 ## 01_02_a Basic Notation and Background
 
 	empirical mean：sum(1:n) {Xi} / n
 	
-	~Xi = Xi - mean(X) ## this process is called 'centering' the random variable 
+	tilde ~Xi = Xi - mean(X) ## this process is called 'centering' the random variable 
 	
 ## 01_02_b Normalization and Correlation
 	
 	emprical [ɪmˈpɪrɪkl] variance: 
-	S^2 = sum(1:n) {(Xi-mean(X))^2} / (n-1)
-		= (sum(1:n) {Xi^2} - n*mean(X)^2) / (n-1)
+	S^2 = sum(1:n) {(Xi - bar(X))^2} / (n-1)
+		= (sum(1:n) {Xi^2} - n*bar(X)^2) / (n-1)
 		
 	emprical stardard deviation: S
 	The empirical standard deviation is a measure of spread.
@@ -96,7 +113,7 @@
 	
 	Xi/S have empirical standard deviation 1. This is called "scaling" the data.
 	
-	Zi = (Xi - mean(X))/S have empirical mean zero and empirical standard deviation 1.
+	Zi = (Xi - bar(X))/S have empirical mean zero and empirical standard deviation 1.
 	The process of centering then scaling the data is called "normalizing" the data.
 	Normalized data are centered at 0 and have units equal to standard deviations of the original data.
 	Example, a value of 2 form normalized data means that data point was two standard deviations larger than the mean.
@@ -106,8 +123,8 @@
 	
 	empirical covariance:
 	
-	Cov(X, Y) = sum(1:n){(Xi - mean(X))*(Yi - mean(Y))} / (n-1)
-			  = (sum(1:n){Xi*Yi} - n*mean(X)*mean(Y)) / (n-1)
+	Cov(X, Y) = sum(1:n){(Xi - bar(X))*(Yi - bar(Y))} / (n-1)
+			  = (sum(1:n){Xi*Yi} - n*bar(X)*bar(Y)) / (n-1)
 	
 	Sometimes people divide by n  rather than n-1 (the latter produces an unbiased estimate.)
 	
@@ -127,28 +144,32 @@
 
 ## 01_03_a Linear Least Squares
 
-	sum(1:n) { (Yi - beta0 - beta1*Xi)^2 }
+	predict Y = beta0 + beta1*Xi
+
+	least squares 
+		= sum(1:n) { (actual - predicted)^2 }
+		= sum(1:n) { (Yi - (beta0 + beta1*Xi))^2 }
 	
 ## 01_03_b Linear Least Squares Special Cases
 
-	totally confused with the ^ (hat symbol)
-	
-	TODO: review this section
+	看 slide
 	
 ## 01_03_c Linear Least Squares Solved
 
-	TODO: review this section
+	前面推导部分看 slide
+	
+	
 
 	Y = beta0 - beta1*X
 	
 	beta1 = Cor(Y, X)*Sy/Sx
-	beta0 = mean(Y) - beta1*mean(X)
+	beta0 = bar(Y) - beta1*bar(X)
 	
 	The line passes through point (mean(X), mean(Y))
 	
 	## If you centered the data as: 
-	* Xi - mean(X)
-	* Yi - mean(Y)
+	* Xi - bar(X)
+	* Yi - bar(Y)
 	with R：
 	* yc <- y - mean(y)
 	* xc <- x - mean(x)
@@ -159,8 +180,8 @@
 	BTW，此时有一个很巧合的结果，sum(xc*yc)/sum(xc^2) = coef(lm(y ~ x))[2]，注意我们要是在 (xc, yc) 上做原点回归，而 (xc, yc) 它恰好是必过原点的，所以这个 slope 就不谋而合
 	
 	## If you normalized the data as:
-	* (Xi - mean(X)) / Sx
-	* (Yi - mean(Y)) / Sy
+	* (Xi - bar(X)) / Sx
+	* (Yi - bar(Y)) / Sy
 	with R：
 	yn <- (y - mean(y))/sd(y)
 	xn <- (x - mean(x))/sd(x)
