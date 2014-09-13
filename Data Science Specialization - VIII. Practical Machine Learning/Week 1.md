@@ -162,7 +162,7 @@
 
 	ROC curve: to measure the quality of a prediction algorithm
 	
-	Area under the curve: AOC
+	Area under the curve: AUC
 	
 	AUC = 0.5: random guessing
 	AUC = 1: perfect classifer
